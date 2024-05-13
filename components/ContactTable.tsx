@@ -3,8 +3,14 @@ import { formatDate } from "@/lib/utils";
 import React from "react";
 import { DeleteButton, EditButton } from "./Buttons";
 
-const ContactTable = async () => {
-  const contacts = await getContacts();
+const ContactTable = async ({
+  query,
+  currentPage,
+}: {
+  query: string;
+  currentPage: number;
+}) => {
+  const contacts = await getContacts(query, currentPage);
   return (
     <table className="w-full text-sm text-left text-gray-500">
       <thead className="text-sm text-gray-700 uppercase bg-gray-50">
@@ -27,7 +33,7 @@ const ContactTable = async () => {
             </td>
             <td className="flex justify-center gap-1 py-3">
               <EditButton id={contact.id} />
-              <DeleteButton />
+              <DeleteButton id={contact.id} />
             </td>
           </tr>
         ))}
